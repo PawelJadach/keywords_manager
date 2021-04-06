@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Keyword } from 'src/keywords/entities/keyword.entity';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { Category } from './entities/category.entity';
@@ -13,7 +14,7 @@ export class CategoriesService {
   }
 
   async findAll() {
-    return await Category.find();
+    return await Category.find({ relations: ['keywords']});
   }
 
   async changeName(id: number, updateCategoryDto: UpdateCategoryDto) {
@@ -29,11 +30,15 @@ export class CategoriesService {
   }
 
   async remove(id: number) {
-    const found = await Category.findOne(id);
+    const found = await Category.findOne(id, { relations: ['keywords'] });
 
     if(!found) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
+
+    found.keywords.forEach(async keyword => {
+      await Keyword.delete(keyword.id);
+    });
 
     await found.remove();
   }

@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
+import { Category } from './../../categories/entities/category.entity';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Keyword extends BaseEntity {
@@ -7,4 +8,7 @@ export class Keyword extends BaseEntity {
 
   @Column()
   name: string;
+
+  @ManyToOne(type => Category, category => category.keywords)
+  category: Category;
 }
