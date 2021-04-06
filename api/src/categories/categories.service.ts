@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { Category } from './entities/category.entity';
@@ -16,12 +16,12 @@ export class CategoriesService {
     return await Category.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
-  }
-
   async changeName(id: number, updateCategoryDto: UpdateCategoryDto) {
-    const found = await Category.findOneOrFail(id);
+    const found = await Category.findOne(id);
+
+    if(!found) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
 
     found.name = updateCategoryDto.name;
 
@@ -29,10 +29,12 @@ export class CategoriesService {
   }
 
   async remove(id: number) {
-    const found = await Category.findOneOrFail(id);
+    const found = await Category.findOne(id);
+
+    if(!found) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
 
     await found.remove();
-
-    return { success: true };
   }
 }
