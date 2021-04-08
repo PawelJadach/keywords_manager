@@ -1,14 +1,13 @@
-import React, { useContext, useState } from 'react'
-import PropTypes from 'prop-types'
-
-import styles from './index.module.css';
-import Tooltip from '../Tooltip';
-import AddTagModal from '../AddTagModal';
-import { removeCategory } from '../../api';
-import { CategoriesContext } from '../../context';
+import React, { useContext, useState } from "react"
+import PropTypes from "prop-types"
+import styles from "./index.module.css";
+import Tooltip from "../Tooltip";
+import AddTagModal from "../AddTagModal";
+import { removeCategory } from "../../api";
+import { CategoriesContext } from "../../context";
 
 const Category = ({ id, name }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [ isOpen, setIsOpen ] = useState(false);
   const categoriesContext = useContext(CategoriesContext);
 
   const handleOpen = () => {
@@ -22,13 +21,13 @@ const Category = ({ id, name }) => {
 
   return (
     <div className={styles.container}>
-      <AddTagModal isOpen={isOpen} setIsOpen={setIsOpen} categoryName={name} />
+      <AddTagModal categoryId={id} isOpen={isOpen} setIsOpen={setIsOpen} categoryName={name} />
       <span className={styles.name}>{name}</span>
       <span className={styles.actions}>
-        <Tooltip content='Add new keyword'>
+        <Tooltip content="Add new keyword">
           <button onClick={handleOpen} className={styles.button}><i className="fas fa-plus"></i></button>
         </Tooltip>
-        <Tooltip content='Remove category with keywords'>
+        <Tooltip content="Remove category with keywords">
           <button onClick={handleRemove} className={styles.button}><i className="fas fa-trash"></i></button>
         </Tooltip>
       </span>
@@ -37,7 +36,8 @@ const Category = ({ id, name }) => {
 }
 
 Category.propTypes = {
-
+  id: PropTypes.number,
+  name: PropTypes.string,
 }
 
 export default Category

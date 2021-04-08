@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import styles from './index.module.css';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import styles from "./index.module.css";
 
-const Tooltip = (props) => {
+const Tooltip = ({ children, content, delay = 400}) => {
   let timeout;
-  const [active, setActive] = useState(false);
+  const [ active, setActive ] = useState(false);
 
   const showTip = () => {
     timeout = setTimeout(() => {
       setActive(true);
-    }, props.delay || 400);
+    }, delay);
   };
 
   const hideTip = () => {
@@ -16,23 +17,32 @@ const Tooltip = (props) => {
     setActive(false);
   };
 
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeout);
+    }
+  }, []);
+
   return (
     <div
       className={styles.tooltipWrapper}
-      // When to show the tooltip
       onMouseEnter={showTip}
       onMouseLeave={hideTip}
     >
-      {/* Wrapping */}
-      {props.children}
+      {children}
       {active && (
         <div className={styles.tooltipTip}>
-          {/* Content */}
-          {props.content}
+          {content}
         </div>
       )}
     </div>
   );
 };
+
+Tooltip.propTypes = {
+  children: PropTypes.node,
+  content: PropTypes.string,
+  delay: PropTypes.number,
+}
 
 export default Tooltip;

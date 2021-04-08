@@ -1,13 +1,22 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext } from "react"
+import PropTypes from "prop-types"
+import Tooltip from "../Tooltip";
+import { removeTag } from "../../api";
+import { CategoriesContext } from "../../context";
+import styles from "./index.module.css";
 
-import styles from './index.module.css';
-import Tooltip from '../Tooltip';
+const Tag = ({ name, id }) => {
+  const categoriesContext = useContext(CategoriesContext);
 
-const Tag = ({ name, onClick }) => {
+  const handleRemove = async () => {
+    await removeTag({ id });
+
+    categoriesContext.removeTag({ id });
+  };
+
   return (
     <Tooltip content="remove keyword">
-      <div onClick={onClick} className={styles.container}>
+      <div onClick={handleRemove} className={styles.container}>
         <span className={styles.name}>{name}</span>
         <button className={styles.remove}><i className="fas fa-trash"></i></button>
       </div>
@@ -16,7 +25,8 @@ const Tag = ({ name, onClick }) => {
 }
 
 Tag.propTypes = {
-
+  name: PropTypes.string,
+  id: PropTypes.number,
 }
 
 export default Tag

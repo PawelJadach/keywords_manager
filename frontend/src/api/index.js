@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios from "axios";
+import { catchErrors } from "./catchErrors";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -8,7 +9,7 @@ export const getCategories = async () => {
 
     return res.data;
   } catch (error) {
-    console.log(error)
+    catchErrors(error)
   }
 };
 
@@ -18,7 +19,7 @@ export const addCategory = async ({ name }) => {
 
     return res.data;
   } catch (error) {
-    console.log(error)
+    catchErrors(error)
   }
 };
 
@@ -28,6 +29,26 @@ export const removeCategory = async ({ id }) => {
 
     return res.data;
   } catch (error) {
-    console.log(error)
+    catchErrors(error)
+  }
+};
+
+export const addTag = async ({ category, name }) => {
+  try {
+    const res = await axios.post(`${backendUrl}/keywords`, { category, name });
+
+    return res.data;
+  } catch (error) {
+    catchErrors(error)
+  }
+};
+
+export const removeTag = async ({ id }) => {
+  try {
+    const res = await axios.delete(`${backendUrl}/keywords/${id}`);
+
+    return res.data;
+  } catch (error) {
+    catchErrors(error)
   }
 };

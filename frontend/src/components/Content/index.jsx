@@ -1,18 +1,12 @@
-import React, { useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { CategoriesContext } from '../../context';
-import { getCategories } from '../../api';
+import React, { useContext, useEffect } from "react";
+import { CategoriesContext } from "../../context";
+import { getCategories } from "../../api";
+import Row from "../Row";
+import Category from "../Category";
+import Tag from "../Tag";
+import AddCategory from "../AddCategory";
 
-import Row from '../Row';
-import Category from '../Category';
-import Tag from '../Tag';
-import AddCategory from '../AddCategory';
-
-import styles from './index.module.css';
-
-const propTypes = {
-    props: PropTypes.object,
-};
+import styles from "./index.module.css";
 
 const Content = () => {
   const categoriesContext = useContext(CategoriesContext);
@@ -31,17 +25,18 @@ const Content = () => {
         <Row
             header
             cols={[
-              'categories',
-              'keywords'
+              "categories",
+              "keywords"
             ]}
           />
           {
             categoriesContext.categories.map(category =>
               <Row
+                key={category.id}
                 cols={[
-                  <Category id={category.id} key={category.id} name={category.name}/>,
+                  <Category id={category.id} name={category.name}/>,
                   <>
-                    {category.keywords.map(keyword => <Tag key={keyword.id} name={keyword.name}/>)}
+                    {category.keywords.map(keyword => <Tag key={keyword.id} id={keyword.id} name={keyword.name}/>)}
                   </>
                 ]}
               />
@@ -51,7 +46,5 @@ const Content = () => {
         </div>
     );
 };
-
-Content.propTypes = propTypes;
 
 export default Content;

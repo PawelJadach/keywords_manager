@@ -5,6 +5,7 @@
 
 .col1 {
   width: 20%;
+  word-break: break-all;
   display: flex;
   align-items: center;
   padding: 20px 30px;

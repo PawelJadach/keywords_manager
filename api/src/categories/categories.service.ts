@@ -1,8 +1,8 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Keyword } from 'src/keywords/entities/keyword.entity';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
-import { Category } from './entities/category.entity';
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { Keyword } from "src/keywords/entities/keyword.entity";
+import { CreateCategoryDto } from "./dto/create-category.dto";
+import { UpdateCategoryDto } from "./dto/update-category.dto";
+import { Category } from "./entities/category.entity";
 
 @Injectable()
 export class CategoriesService {
@@ -12,18 +12,18 @@ export class CategoriesService {
 
     const { id } = await category.save()
 
-    return await Category.findOne(id, { relations: ['keywords']});
+    return await Category.findOne(id, { relations: ["keywords"]});
   }
 
   async findAll() {
-    return await Category.find({ relations: ['keywords']});
+    return await Category.find({ relations: ["keywords"]});
   }
 
   async changeName(id: number, updateCategoryDto: UpdateCategoryDto) {
     const found = await Category.findOne(id);
 
     if(!found) {
-      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+      throw new HttpException("Not found", HttpStatus.NOT_FOUND);
     }
 
     found.name = updateCategoryDto.name;
@@ -32,10 +32,10 @@ export class CategoriesService {
   }
 
   async remove(id: number) {
-    const found = await Category.findOne(id, { relations: ['keywords'] });
+    const found = await Category.findOne(id, { relations: ["keywords"] });
 
     if(!found) {
-      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+      throw new HttpException("Not found", HttpStatus.NOT_FOUND);
     }
 
     found.keywords.forEach(async keyword => {

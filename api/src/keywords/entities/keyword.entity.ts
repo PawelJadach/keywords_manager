@@ -1,5 +1,5 @@
-import { Category } from './../../categories/entities/category.entity';
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, ManyToOne } from 'typeorm';
+import { Category } from "./../../categories/entities/category.entity";
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, ManyToOne } from "typeorm";
 
 @Entity()
 export class Keyword extends BaseEntity {

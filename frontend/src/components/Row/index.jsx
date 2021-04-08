@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import clsx from 'clsx';
+import React from "react"
+import PropTypes from "prop-types"
+import clsx from "clsx";
 
-import styles from './index.module.css';
+import styles from "./index.module.css";
 
 const Row = ({ cols, header = false }) => {
   const colorClassName = header ? styles.header : styles.normal;
@@ -20,7 +20,8 @@ const Row = ({ cols, header = false }) => {
 }
 
 Row.propTypes = {
-
+  cols: PropTypes.array,
+  header: PropTypes.bool,
 }
 
 export default Row
