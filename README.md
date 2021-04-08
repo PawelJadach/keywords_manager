@@ -8,7 +8,7 @@
 
 ### Start local
 - download project
-- on root run 'docker-compose up'
+- on root run `docker-compose up`
 - on /api directory run
   - `npm install`
   - `npm start`
