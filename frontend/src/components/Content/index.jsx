@@ -23,27 +23,27 @@ const Content = () => {
     return (
       <div className={styles.container}>
         <Row
-            header
-            cols={[
-              "categories",
-              "keywords"
-            ]}
-          />
-          {
-            categoriesContext.categories.map(category =>
-              <Row
-                key={category.id}
-                cols={[
-                  <Category id={category.id} name={category.name}/>,
-                  <>
-                    {category.keywords.map(keyword => <Tag key={keyword.id} id={keyword.id} name={keyword.name}/>)}
-                  </>
-                ]}
-              />
-            )
-          }
-          <AddCategory />
-        </div>
+          header
+          cols={[
+            "categories",
+            "keywords"
+          ]}
+        />
+        {
+          categoriesContext?.categories?.map(category =>
+            <Row
+              key={category.id}
+              cols={[
+                <Category id={category.id} name={category.name}/>,
+                <>
+                  {category?.keywords?.map(keyword => <Tag key={keyword.id} id={keyword.id} name={keyword.name}/>)}
+                </>
+              ]}
+            />
+          )
+        }
+        <AddCategory />
+      </div>
     );
 };
 

@@ -2,11 +2,11 @@ import { Category } from "./../categories/entities/category.entity";
 import { Keyword } from "./entities/keyword.entity";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { CreateKeywordDto } from "./dto/create-keyword.dto";
-import { UpdateKeywordDto } from "./dto/update-keyword.dto";
+import { KeywordInterface } from "src/interfaces/keyword";
 
 @Injectable()
 export class KeywordsService {
-  async create(createKeywordDto: CreateKeywordDto) {
+  async create(createKeywordDto: CreateKeywordDto): Promise<KeywordInterface> {
     const keyword = new Keyword();
     if(!createKeywordDto.category) {
       throw new HttpException("Provide category", HttpStatus.BAD_REQUEST)
@@ -24,23 +24,11 @@ export class KeywordsService {
     return { id: newKeyword.id, name: newKeyword.name };
   }
 
-  async findAll() {
+  async findAll(): Promise<KeywordInterface[]> {
     return await Keyword.find({ relations: ["category"]});
   }
 
-  async changeName(id: number, updateKeywordDto: UpdateKeywordDto) {
-    const found = await Keyword.findOne(id);
-
-    if(!found) {
-      throw new HttpException("Not found", HttpStatus.NOT_FOUND);
-    }
-
-    found.name = updateKeywordDto.name;
-
-    return await found.save();
-  }
-
-  async remove(id: number) {
+  async remove(id: number): Promise<void> {
     const found = await Keyword.findOne(id);
 
     if(!found) {

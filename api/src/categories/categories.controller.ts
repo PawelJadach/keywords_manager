@@ -1,29 +1,24 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { CategoryInterface } from "src/interfaces/categories";
 import { CategoriesService } from "./categories.service";
 import { CreateCategoryDto } from "./dto/create-category.dto";
-import { UpdateCategoryDto } from "./dto/update-category.dto";
 
 @Controller("categories")
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
-  create(@Body() createCategoryDto: CreateCategoryDto) {
+  create(@Body() createCategoryDto: CreateCategoryDto): Promise<CategoryInterface> {
     return this.categoriesService.create(createCategoryDto);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<CategoryInterface[]> {
     return this.categoriesService.findAll();
   }
 
-  @Patch(":id/name")
-  update(@Param("id") id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
-    return this.categoriesService.changeName(+id, updateCategoryDto);
-  }
-
   @Delete(":id")
-  remove(@Param("id") id: string) {
+  remove(@Param("id") id: string): Promise<void> {
     return this.categoriesService.remove(+id);
   }
 }
