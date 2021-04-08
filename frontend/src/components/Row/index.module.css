@@ -1,0 +1,31 @@
+.row {
+  display: flex;
+  width: 100%;
+}
+
+.col1 {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
+}
+
+.col2 {
+  width: 80%;
+  margin-left: 3px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0px 30px;
+}
+
+.header {
+  background-color: var(--yellow);
+  color: var(--dark);
+  padding: 20px 30px;
+}
+
+
+.normal {
+  background-color: var(--dark);
+  color: var(--white);
+}

@@ -1,0 +1,31 @@
+.container {
+  width: 100%;
+  height: 100%;
+  transition: .2s;
+  display: flex;
+  justify-content: space-between;
+}
+
+.container:hover {
+  color: var(--yellow);
+}
+
+.button {
+  opacity: 0;
+  background-color: transparent;
+  border: none;
+  color: var(--yellow);
+  font-weight: bold;
+  transition: .2s;
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--white);
+}
+
+.button:hover {
+  color: var(--yellow);
+}
+
+.container:hover .button {
+  opacity: 1;
+}

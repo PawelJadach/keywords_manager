@@ -1,0 +1,41 @@
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--dark);
+  border: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.submit {
+  background-color: var(--dark);
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 10px;
+  color: var(--white);
+  border: none;
+}
+
+.input {
+  border: 3px solid var(--dark);
+  padding: 9px;
+  font-weight: bold;
+  width: 300px;
+}
+
+.header {
+  text-align: center;
+}

@@ -1,8 +1,11 @@
+import Content from "./components/Content";
+import {CategoriesContextProvider } from "./context";
+
 function App() {
   return (
-    <div className="App">
-
-    </div>
+    <CategoriesContextProvider>
+      <Content />
+    </CategoriesContextProvider>
   );
 }
 
