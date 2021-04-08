@@ -10,7 +10,9 @@ export class CategoriesService {
     const category = new Category();
     category.name = createCategoryDto.name;
 
-    return await category.save();
+    const { id } = await category.save()
+
+    return await Category.findOne(id, { relations: ['keywords']});
   }
 
   async findAll() {

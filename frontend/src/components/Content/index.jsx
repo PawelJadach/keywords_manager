@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { CategoriesContext } from '../../context';
+import { getCategories } from '../../api';
 
 import Row from '../Row';
 import Category from '../Category';
 import Tag from '../Tag';
-import Button from '../Button';
+import AddCategory from '../AddCategory';
 
 import styles from './index.module.css';
 
@@ -14,8 +15,16 @@ const propTypes = {
 };
 
 const Content = () => {
-    const categoriesContext = useContext(CategoriesContext);
-    console.log(categoriesContext);
+  const categoriesContext = useContext(CategoriesContext);
+
+    useEffect(() => {
+      const asyncFunc = async () => {
+        const categories = await getCategories();
+        categoriesContext.setCategories(categories);
+      };
+
+      asyncFunc();
+    }, []); //eslint-disable-line
 
     return (
       <div className={styles.container}>
@@ -26,40 +35,19 @@ const Content = () => {
               'keywords'
             ]}
           />
-          <Row
-            cols={[
-              <Category name='cars'/>,
-              <>
-                <Tag name='Keyword 1'/>
-                <Tag name='Keyword 2'/>
-                <Tag name='Keyword 3'/>
-                <Tag name='Keyword 4'/>
-              </>
-            ]}
-          />
-          <Row
-            cols={[
-              <Category name='cars'/>,
-              <>
-                <Tag name='Keyword 1'/>
-                <Tag name='Keyword 2'/>
-                <Tag name='Keyword 3'/>
-                <Tag name='Keyword 4'/>
-              </>
-            ]}
-          />
-          <Row
-            cols={[
-              <Category name='cars'/>,
-              <>
-                <Tag name='Keyword 1'/>
-                <Tag name='Keyword 2'/>
-                <Tag name='Keyword 3'/>
-                <Tag name='Keyword 4'/>
-              </>
-            ]}
-          />
-          <Button />
+          {
+            categoriesContext.categories.map(category =>
+              <Row
+                cols={[
+                  <Category id={category.id} key={category.id} name={category.name}/>,
+                  <>
+                    {category.keywords.map(keyword => <Tag key={keyword.id} name={keyword.name}/>)}
+                  </>
+                ]}
+              />
+            )
+          }
+          <AddCategory />
         </div>
     );
 };
